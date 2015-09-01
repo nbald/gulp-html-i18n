@@ -205,7 +205,6 @@ module.exports = (opt = {}) ->
             if opt.createLangDirs
               # quick and ugly hack
               newFilePath = newFilePath.replace /\/pages\//, "/pages/"+lang+"/"
-              console.log newFilePath
 
             #
             # If the option `inline` is set, replace the tags in the same source file,
@@ -223,10 +222,10 @@ module.exports = (opt = {}) ->
               langResource[lang]
 
             if options.fallback
-              console.log lang
-              console.log content
+              #console.log lang
+              #console.log content
               content = replaceProperties content, langResource[options.fallback]
-              console.log content
+              #console.log content
 
             if opt.trace
               tracePath = path.relative(process.cwd(), originPath)
