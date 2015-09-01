@@ -16,7 +16,7 @@ define({
 ```
 
 `gulp-html-i18n` will produce an object called `index`. You can then use
-`${{ index.heading }}$` to get a result of "Welcome!".
+`{{index.heading}}` to get a result of "Welcome!".
 
 ### JSON
 Given the following in a file named: `lang/en-US/index.json`
@@ -42,11 +42,11 @@ Initial:
 ```html
 <html>
   <body>
-    <h1>${{ index.heading }}$</h1>
+    <h1>{{index.heading}}</h1>
     <div>
       <!-- Website content -->
     </div>
-    <div>${{ index.footer }}$</div>
+    <div>{{index.footer}}</div>
   <body>
 </html>
 ```

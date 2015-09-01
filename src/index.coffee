@@ -7,7 +7,7 @@ through = require 'through2'
 
 EOL           = '\n'
 options       = undefined
-langRegExp    = /\${{ ?([\w\-\.]+) ?}}\$/g
+langRegExp    = /\{\{\s*([\w\-\.]+)\s*\}\}/g
 supportedType = ['.js', '.json']
 
 #
