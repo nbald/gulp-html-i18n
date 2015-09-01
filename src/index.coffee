@@ -4,11 +4,12 @@ path    = require 'path'
 async   = require 'async'
 gutil   = require 'gulp-util'
 through = require 'through2'
+CSON    = require 'cson'
 
 EOL           = '\n'
 options       = undefined
 langRegExp    = /\{\{\s*([\w\-\.]+)\s*\}\}/g
-supportedType = ['.js', '.json']
+supportedType = ['.js', '.json', '.cson']
 
 #
 # Convert a property name into a reference to the definition
@@ -81,6 +82,8 @@ getLangResource = (->
         res = getJsResource(filePath)
       else if path.extname(filePath) is '.json'
         res = getJSONResource(filePath)
+      else if path.extname(filePath) is '.cson'
+        res = getCSONResource(filePath)
     catch e
       throw new Error 'Language file "' + filePath + '" syntax error! - ' +
         e.toString()
@@ -98,6 +101,10 @@ getLangResource = (->
   getJSONResource = (filePath) ->
     define(JSON.parse(fs.readFileSync(filePath).toString()))
 
+  # Parse a CSON file into a resource object
+  getCSONResource = (filePath) ->
+    define(CSON.parse(fs.readFileSync(filePath).toString()))
+
   #
   # Load a resource file into a dictionary named after the file
   #
@@ -114,7 +121,7 @@ getLangResource = (->
           (filePath, cb) ->
             if path.extname(filePath) in supportedType
               filePath = path.resolve langDir, filePath
-              res[path.basename(filePath).replace(/\.js(on)?$/, '')] =
+              res[path.basename(filePath).replace(/\.(j|c)s(on)?$/, '')] =
                 getResourceFile filePath
             cb()
           (err) ->
