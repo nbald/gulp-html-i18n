@@ -203,11 +203,9 @@ module.exports = (opt = {}) ->
             # to path/lang/foo.html. Otherwise, save to path/foo-lang.html
             #
             if opt.createLangDirs
-              newFilePath = path.resolve(
-                path.dirname(newFilePath),
-                lang,
-                path.basename(newFilePath)
-              )
+              # quick and ugly hack
+              newFilePath = newFilePath.replace /\/pages\//, "/pages/"+lang+"/"
+              console.log newFilePath
 
             #
             # If the option `inline` is set, replace the tags in the same source file,
